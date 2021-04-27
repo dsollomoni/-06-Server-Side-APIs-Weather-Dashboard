@@ -15,10 +15,75 @@
     <main class="Container">
         <div class = "row">
             <div class="col-12 col-md-3 p-2 search-column">
-                
+                <form class = "border p-2" id = "city-search">
+                    <h2>Search for a City</h2>
+                    <input id="city" type = "text" autofocus = "true" class = "form-input"/>
+                    <button class = "btn btn-primary" type = "submit">Search</button>
+                </form>
+                <div class = "past-search border" id = "past-search-buttons">
+                    <h1>Past searches</h1>
+                </div>
+            </div>
+            <div class="col-12 col-md-9">
+                <div class = "row border selected-city" id = "current-forecast">
+                    <div class = "col-12">
+                        <h3 id="searched-city"></h3>
+                        <img id = "current-icon" src="http://openweathermap.org/img/w/01d.png">
+                        <div id = "current-weather-container" class = "list-group">
+                            <h3 id = "current-temp">Temp:</h3>
+                            <h3 id = "current-wind">Wind:</h3>
+                            <h3 id = "current-humidity">Humidity:</h3>
+                            <h3 id = "current-uvi">UV Index:</h3>
+                        </div>
+                    </div>  
+                </div>
+                <div class = "row border" id = "five-day-forecast">
+                        <h2 class= "col-12" id = "forecast">5 Day Forcast</h2>
+                        <div class = "d-flex" id = "fiveday-container">
+                            <div class = "card">
+                                <h4>Date</h4>
+                                <img src="http://openweathermap.org/img/w/01d.png">
+                                <h5>Temp:</h5>
+                                <h5>Wind:</h5>
+                                <h5>Humidity:</h5>
+                            </div>
+                            <div class = "day">
+                                <h4>Date</h4>
+                                <img src="http://openweathermap.org/img/w/01d.png">
+                                <h5>Temp:</h5>
+                                <h5>Wind:</h5>
+                                <h5>Humidity:</h5>
+                            </div>
+                            <div class = "day">
+                                <h4>Date</h4>
+                                <img src="http://openweathermap.org/img/w/01d.png">
+                                <h5>Temp:</h5>
+                                <h5>Wind:</h5>
+                                <h5>Humidity:</h5>
+                            </div>
+                            <div class = "day">
+                                <h4>Date</h4>
+                                <img src="http://openweathermap.org/img/w/01d.png">
+                                <h5>Temp:</h5>
+                                <h5>Wind:</h5>
+                                <h5>Humidity:</h5>
+                            </div>
+                            <div class = "day">
+                                <h4>Date</h4>
+                                <img src="http://openweathermap.org/img/w/01d.png">
+                                <h5>Temp:</h5>
+                                <h5>Wind:</h5>
+                                <h5>Humidity:</h5>
+                            </div>
+                        </div>
+                </div>  
+            </div>
             </div>
         </div>
     </main>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
