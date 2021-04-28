@@ -15,6 +15,7 @@ var currentHumidity = document.getElementById("current-humidity")
 var currentUvi = document.getElementById("current-uvi")
 var Listofcity=[]
 var history = document.getElementById("past-search-buttons")
+var fiveDay = document.getElementById("fiveday-container").children
 
 
 var search = document.getElementById("city-search")
@@ -26,27 +27,43 @@ search.addEventListener("submit", (e)=>{
     getData()
 })
 
-
-
+var reloadSearches = () => {
+    Object.keys(localStorage).forEach((keys) => {
+        var para = document.createElement("BUTTON");                      
+        var t = document.createTextNode(keys);     
+        para.appendChild(t);
+        para.className = "btn btn-primary btn-sm"
+        para.addEventListener("click",(e)=>{
+        city = e.target.innerHTML    
+        getData();
+        console.log(e.target.innerHTML)
+    })                                         
+    document.getElementById("past-search-buttons").appendChild(para);   
+    })
+}
+var pastSearhes = () => {
+    if (!JSON.parse(localStorage.getItem(city))){ 
+        localStorage.setItem(city,true)
+        console.log(localStorage.getItem(city))
+        var para = document.createElement("BUTTON");                      
+        var t = document.createTextNode(city);     
+        para.appendChild(t);
+        para.className = "btn btn-primary btn-sm"
+        para.addEventListener("click",(e)=>{
+        city = e.target.innerHTML    
+        getData();
+        console.log(e.target.innerHTML)
+    })                                         
+    document.getElementById("past-search-buttons").appendChild(para);           
+    }
+}
 
 var getData = async() => {
     await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_key}`)
     .then(response => response.json())
     .then(data => {
-        if (!Listofcity.includes(city)){
-            Listofcity.push(city) 
-            var para = document.createElement("BUTTON");                      
-            var t = document.createTextNode(city);     
-            para.appendChild(t);
-            para.className="past-cities"
-            para.addEventListener("click",(e)=>{
-            city = e.target.innerHTML    
-            getData();
-            console.log(e.target.innerHTML)
-        })                                         
-        document.getElementById("past-search-buttons").appendChild(para);           
-        }
         
+        pastSearhes()
         forecast = data.list
         lat = data.city.coord.lat
         lon = data.city.coord.lon
@@ -64,7 +81,7 @@ var getData = async() => {
            console.log(data)
            console.log(temp)
            currentIcon.src=`http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`
-           currentTemp.innerText=`Temp: ${data.current.temp}°`
+           currentTemp.innerText=`Temp: ${data.current.temp}°F`
            currentWind.innerText=`Wind: ${data.current.wind_speed} MPH`
            currentHumidity.innerText=`Humidity: ${data.current.humidity}%`
            currentUvi.innerText=`UV Index: ${data.current.uvi}`
@@ -73,7 +90,17 @@ var getData = async() => {
            else if (data.current.uvi < 7) currentUvi.style.color= "orange"
            else if (data.current.uvi < 10) currentUvi.style.color= "red"
            else currentUvi.style.color= "violet"
+
+           for (var i = 0; i < fiveDay.length; i++){
+               console.log(fiveDay[i])
+               fiveDay[i].children[0].innerHTML = moment().add(i + 1, 'days').format("MMMM Do YYYY");
+               fiveDay[i].children[1].src = `http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`
+               fiveDay[i].children[2].innerHTML = `Temp: ${data.daily[i].temp.day}°F`;
+               fiveDay[i].children[3].innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`;
+               fiveDay[i].children[4].innerHTML = `Humidity ${data.daily[i].humidity} %`;
+           }
         })
 }
+reloadSearches();
 
 getData();

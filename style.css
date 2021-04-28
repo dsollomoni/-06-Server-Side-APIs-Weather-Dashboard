@@ -1,3 +1,31 @@
-.list-group{
-    font-size: 25px;
+html,body{
+    height: 100vh;
+}
+
+.Container{
+    background-color: #b3cde0;
+    height: 100%;
+}
+#city-search{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    border-radius: 5px;
+    margin: 10px;
+    padding: 15px;
+    background-color: #E6E6FA;
+}
+
+.btn.btn-primary.btn-sm {
+    margin: 10px;
+    width: 75%;
+}
+
+#past-search-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
